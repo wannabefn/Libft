@@ -1,71 +1,79 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int	put_count(int a)
 {
 	int	n;
 
 	n = 1;
-	while (a > 10)
+        
+	while (a >= 10)
 	{
-		if (a < 10)
-			return (n++);
-
-		else
-		{
-			a = (a / 10);
-			a % 10;
-			n++;
-		}
-	}
+		a = (a / 10);
+		n++;
+        }
 	return (n);
 }
 
-int	*put_print(int num, char *str)
+char	*put_print(int num, char *str)
 {
-
-	if (num < 10)
-		return (*str = '0' + num);
-	else
+	if (num >= 10)
 	{
-		put_print(num / 10, str);
-		str++;
-		*str = '0' + (num % 10);
-		i++;
+		str = put_print(num / 10, str);
 	}
-	return (str);
+	*str = '0' + (num % 10);
+	return str+1;
+}
+char	*sp(void)
+{
+	char	*ptr;
+
+	ptr = (char *)malloc(12);
+	ptr[0] = '-';
+	ptr[1] = '2';
+	ptr[2] = '1';
+	ptr[3] = '4';
+	ptr[4] = '7';	
+	ptr[5] = '4';	
+	ptr[6] = '8';	
+	ptr[7] = '3';	
+	ptr[8] = '6';	
+	ptr[9] = '4';	
+	ptr[10] = '8';	
+	ptr[11] = '\0';	
+	return (ptr);
 }
 
 char	*ft_itoa(int n)
 {
 	char		*ptr;
+	char		*start;
 	int	i;
-	int	j;
 	int	s;
 
-	i = 0;
-	j = 0;
+       	i = 0;
 	s = 0;
+	if (n == -2147483648)
+		return (sp());
 	if (n < 0)
 	{
-		n * -1;
+		n *= -1;
 		s++;
 	}
 	i = put_count(n);
 	ptr = (char *)malloc(i + s + 1);
-	/*if (n <= 10)
-	{
-		ptr[0] = n + '0';
-		ptr[1] = '\0';
-		return (ptr);
-	}*/
-	ptr = put_print(n, ptr);
-	p++;
+	if (!(ptr))
+		return (NULL);
+	start = ptr;
+	if (s > 0)
+		ptr[0] = '-';
+	ptr = put_print(n, (ptr + s));
+	ptr++;
 	*ptr = '\0';
-	ptr -= (i);
-	return (ptr);
+        return (start);
 }
-int	main()
-{
-	printf("%s", ft_itoa(-42);
-	return (0);
+int main() {
+
+  printf("%s", ft_itoa(-2147483648));
+  return 0;
 }
